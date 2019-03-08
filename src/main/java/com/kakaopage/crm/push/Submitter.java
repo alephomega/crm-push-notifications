@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 
 class Submitter {
     private static final Gson GSON = new GsonBuilder().create();
+
     static void submit(Task task) {
         String description = GSON.toJson(task);
 

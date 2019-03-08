@@ -1,8 +1,14 @@
 package com.kakaopage.crm.push;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@ToString
 class Job {
     private final Metadata metadata;
     private final List<Progress> progresses;
@@ -16,10 +22,10 @@ class Job {
         return progresses.stream().map(progress -> progress.next(size)).collect(Collectors.toList());
     }
 
-    Metadata getMetadata() {
-        return metadata;
-    }
 
+    @Getter
+    @EqualsAndHashCode
+    @ToString
     static class Metadata {
         private final String id;
         private final Cohort cohort;
@@ -30,6 +36,8 @@ class Job {
         }
     }
 
+    @Getter
+    @ToString
     private class Progress {
         private final Partition partition;
         private long checkpoint;

@@ -1,5 +1,12 @@
 package com.kakaopage.crm.push;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@EqualsAndHashCode
+@ToString
 class Split {
     private final Job.Metadata metadata;
     private final Partition partition;
@@ -11,31 +18,5 @@ class Split {
         this.partition = partition;
         this.offset = offset;
         this.length = length;
-    }
-
-    Partition getPartition() {
-        return partition;
-    }
-
-    long getOffset() {
-        return offset;
-    }
-
-    private int getLength() {
-        return length;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Split) {
-            return partition.equals(((Split) obj).getPartition()) && offset == ((Split) obj).getOffset() && length == ((Split) obj).getLength();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31*(31*(31 + partition.hashCode()) + Long.hashCode(offset)) + Integer.hashCode(length);
     }
 }

@@ -1,8 +1,15 @@
 package com.kakaopage.crm.push;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Collections;
 import java.util.List;
 
+@Getter
+@EqualsAndHashCode
+@ToString
 class Task {
     private Token token;
     private List<Split> splits;
@@ -29,12 +36,8 @@ class Task {
 
     }
 
-    void setToken(Token token) {
+    private void setToken(Token token) {
         this.token = token;
-    }
-
-    Token getToken() {
-        return token;
     }
 
     boolean isRunning() {

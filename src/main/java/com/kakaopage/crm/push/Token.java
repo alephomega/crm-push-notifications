@@ -1,28 +1,12 @@
 package com.kakaopage.crm.push;
 
-public class Token {
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@EqualsAndHashCode
+@RequiredArgsConstructor
+class Token {
     private final int id;
-
-    public Token(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Token) {
-            return id == ((Token) obj).id;
-        }
-
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);
-    }
 }

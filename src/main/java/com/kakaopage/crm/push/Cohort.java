@@ -1,6 +1,13 @@
 package com.kakaopage.crm.push;
 
-public class Cohort {
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@EqualsAndHashCode
+@ToString
+class Cohort {
     private final String bucket;
     private final String key;
     private final String pattern;
@@ -9,17 +16,5 @@ public class Cohort {
         this.bucket = bucket;
         this.key = key;
         this.pattern = pattern;
-    }
-
-    public String getBucket() {
-        return bucket;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getPattern() {
-        return pattern;
     }
 }
