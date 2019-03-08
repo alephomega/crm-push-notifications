@@ -33,7 +33,6 @@ class MiniBatch {
         tasks.forEach(runner::run);
 
         while(true) {
-            // check completion
 
             break;
         }
