@@ -1,11 +1,12 @@
 package com.kakaopage.crm.push;
 
-import java.util.List;
+import lombok.Getter;
 
-public class Context {
-    private List<Job> jobs;
+@Getter
+class Context {
+    private Configuration config;
 
-    public Context(Configuration config) {
-
+    Context(Configuration config) {
+        this.config = config;
     }
 }

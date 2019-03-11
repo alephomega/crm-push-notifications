@@ -1,5 +1,6 @@
 package com.kakaopage.crm.push;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Getter
+@EqualsAndHashCode(exclude = { "iteration" })
 @ToString
 class MiniBatch {
     private final int iteration;
@@ -19,9 +21,12 @@ class MiniBatch {
         this.tasks = tasks;
     }
 
-    static MiniBatch of(Configuration config, int iteration, List<Job> jobs) {
+    static MiniBatch of(Context context, int iteration, List<Job> jobs) {
+        Configuration config = context.getConfig();
         SplitPartitioner partitioner = new SplitPartitioner();
-        jobs.stream().map(job -> job.batch(config.getSplitSize())).forEach(partitioner);
+        jobs.stream().filter(job -> job.getState().after(State.PARTITIONING))
+                .map(job -> Messaging.of(job, context).batch(config.getSplitSize()))
+                .forEach(partitioner);
 
         return new MiniBatch(iteration, partitioner.partitions.stream().map(Task::new).collect(Collectors.toList()));
     }

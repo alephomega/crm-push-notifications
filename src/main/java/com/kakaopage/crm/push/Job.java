@@ -4,24 +4,21 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Getter
+@EqualsAndHashCode
 @ToString
 class Job {
     private final Metadata metadata;
-    private final List<Progress> progresses;
+    private State state;
 
-    Job(Metadata metadata, List<Partition> partitions) {
+    Job(Metadata metadata, State state) {
         this.metadata = metadata;
-        this.progresses = partitions.stream().map(Progress::new).collect(Collectors.toList());
+        this.state = state;
     }
 
-    List<Split> batch(int size) {
-        return progresses.stream().map(progress -> progress.next(size)).collect(Collectors.toList());
+    void setState(State state) {
+        this.state = state;
     }
-
 
     @Getter
     @EqualsAndHashCode
@@ -33,22 +30,6 @@ class Job {
         Metadata(String id, Cohort cohort) {
             this.id = id;
             this.cohort = cohort;
-        }
-    }
-
-    @Getter
-    @ToString
-    private class Progress {
-        private final Partition partition;
-        private long checkpoint;
-
-        Progress(Partition partition) {
-            this.partition = partition;
-            this.checkpoint = -1;
-        }
-
-        Split next(int size) {
-            return new Split(getMetadata(), partition, checkpoint + 1, size);
         }
     }
 }

@@ -7,11 +7,11 @@ import com.amazonaws.services.sqs.model.ReceiveMessageResult;
 
 import java.util.List;
 
-public class EventDispatcher implements Runnable {
+class EventDispatcher implements Runnable {
 
     private final AmazonSQS sqs;
 
-    public EventDispatcher(AmazonSQS sqs) {
+    EventDispatcher(AmazonSQS sqs) {
         this.sqs = sqs;
     }
 
