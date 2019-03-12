@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(exclude = { "iteration" })
 @ToString
 class MiniBatch {
+
     private final int iteration;
     private final List<Task> tasks;
 
@@ -24,11 +25,16 @@ class MiniBatch {
     static MiniBatch of(Context context, int iteration, List<Job> jobs) {
         Configuration config = context.getConfig();
         SplitPartitioner partitioner = new SplitPartitioner();
-        jobs.stream().filter(job -> job.getState().after(State.PARTITIONING))
+
+        jobs.stream()
+                .filter(job -> job.getState().after(State.PARTITIONING))
                 .map(job -> Messaging.of(job, context).batch(config.getSplitSize()))
                 .forEach(partitioner);
 
-        return new MiniBatch(iteration, partitioner.partitions.stream().map(Task::new).collect(Collectors.toList()));
+        return new MiniBatch(iteration,
+                partitioner.partitions.stream()
+                        .map(Task::new)
+                        .collect(Collectors.toList()));
     }
 
     void run(int concurrency) {

@@ -1,7 +1,8 @@
 package com.kakaopage.crm.push;
 
 import com.amazonaws.services.glue.AWSGlue;
-import com.amazonaws.services.glue.model.GetJobRunRequest;
+import com.amazonaws.services.glue.model.StartJobRunRequest;
+import com.amazonaws.services.glue.model.StartJobRunResult;
 
 public class Glue {
     private final AWSGlue client;
@@ -10,8 +11,8 @@ public class Glue {
         this.client = client;
     }
 
-    public void run() {
-        GetJobRunRequest request = null;
-        client.getJobRun(request);
+    public void run(String jobName, Configuration config) {
+        StartJobRunRequest request = new StartJobRunRequest();
+        StartJobRunResult result = client.startJobRun(request);
     }
 }

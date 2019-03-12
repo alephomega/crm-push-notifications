@@ -11,12 +11,12 @@ class Split {
     private final Job.Metadata metadata;
     private final Partition partition;
     private final long offset;
-    private final int length;
+    private final int count;
 
-    Split(Job.Metadata metadata, Partition partition, long offset, int length) {
+    Split(Job.Metadata metadata, Partition partition, long offset, int count) {
         this.metadata = metadata;
         this.partition = partition;
         this.offset = offset;
-        this.length = length;
+        this.count = count;
     }
 }
